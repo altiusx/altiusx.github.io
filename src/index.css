@@ -1,0 +1,9 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* You can keep your custom styles below if you have any, but these top 3 are mandatory */
+html, body {
+  background-color: #0f172a; /* Matches your hideout-bg color */
+  color: #e2e8f0;
+}
