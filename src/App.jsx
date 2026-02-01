@@ -7,7 +7,7 @@ import Typewriter from './components/Typewriter';
 
 const App = () => {
   return (
-    <div className="min-h-screen transition-colors duration-300 ease-in-out bg-zinc-50 dark:bg-hideout-bg text-slate-900 dark:text-hideout-text p-4 md:p-8 font-sans selection:bg-hideout-accent selection:text-white">
+    <div className="min-h-screen bg-zinc-50 dark:bg-hideout-bg text-slate-900 dark:text-hideout-text p-4 md:p-8 font-sans selection:bg-hideout-accent selection:text-white">
       <div className="max-w-6xl mx-auto">
         {/* HEADER */}
         <header className="mb-12 flex justify-between items-end">

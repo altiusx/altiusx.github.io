@@ -1,32 +1,70 @@
 import React from 'react';
+import { flushSync } from 'react-dom';
 import { motion } from 'framer-motion';
 
 const ThemeToggle = () => {
   const [theme, setTheme] = React.useState(localStorage.getItem('theme') || 'dark');
+  const isDark = theme === 'dark';
 
   React.useEffect(() => {
-    if (theme === 'dark') {
+    if (isDark) {
       document.documentElement.classList.add('dark');
     } else {
       document.documentElement.classList.remove('dark');
     }
     localStorage.setItem('theme', theme);
-  }, [theme]);
+  }, [theme, isDark]);
 
-  const toggleTheme = () => {
-    setTheme(theme === 'dark' ? 'light' : 'dark');
+  const toggleTheme = async (e) => {
+    // 1. Check if the browser supports the API (Chrome/Edge/Arc)
+    if (!document.startViewTransition) {
+      setTheme(isDark ? 'light' : 'dark');
+      return;
+    }
+
+    // 2. Calculate distance to furthest corner from the click
+    // This ensures the circle grows enough to cover the whole screen
+    const x = e.clientX;
+    const y = e.clientY;
+    const endRadius = Math.hypot(
+      Math.max(x, window.innerWidth - x),
+      Math.max(y, window.innerHeight - y)
+    );
+
+    // 3. Take the snapshot
+    const transition = document.startViewTransition(() => {
+      // Force React to update the DOM *now* so the "New" snapshot is correct
+      flushSync(() => {
+        setTheme(isDark ? 'light' : 'dark');
+      });
+    });
+
+    // 4. Run the animation logic once the snapshot is ready
+    await transition.ready;
+
+    // Animate the "New" view clipping in a circle
+    const clipPath = [`circle(0px at ${x}px ${y}px)`, `circle(${endRadius}px at ${x}px ${y}px)`];
+
+    document.documentElement.animate(
+      {
+        clipPath: clipPath,
+      },
+      {
+        duration: 700,
+        easing: 'ease-in',
+        // This targets the "New" snapshot (the incoming theme)
+        pseudoElement: '::view-transition-new(root)',
+      }
+    );
   };
 
-  const isDark = theme === 'dark';
-
-  // ANIMATION CONFIG
-  // We use a spring transition to match the "physics" feel of the original article
-  const springConfig = { type: 'spring', stiffness: 70, damping: 15 };
+  // ANIMATION CONFIG (Icon Physics)
+  const springConfig = { type: 'spring', stiffness: 75, damping: 15 };
 
   return (
     <button
       onClick={toggleTheme}
-      className="p-2 rounded-full hover:bg-black/5 dark:hover:bg-white/10 transition-colors group relative"
+      className="p-2 rounded-full hover:bg-black/5 dark:hover:bg-white/10 transition-colors group relative z-50"
       aria-label="Toggle Theme"
     >
       <motion.svg
@@ -40,44 +78,39 @@ const ThemeToggle = () => {
         strokeLinejoin="round"
         className="stroke-slate-900 dark:stroke-white fill-slate-900 dark:fill-white"
         animate={{
-          rotate: isDark ? 30 : 90, // Rotates slightly when changing
+          rotate: isDark ? 40 : 90,
         }}
         transition={springConfig}
       >
         <mask id="moon-mask">
           <rect x="0" y="0" width="100%" height="100%" fill="white" />
-          {/* The "Eclipse" Circle: Moves over the sun to create the crescent */}
           <motion.circle
             cx="12"
             cy="4"
             r="9"
             fill="black"
             animate={{
-              cx: isDark ? 12 : 30, // 12 = center (eclipse), 30 = far away (sun)
+              cx: isDark ? 12 : 30,
               cy: isDark ? 4 : 0,
             }}
             transition={springConfig}
           />
         </mask>
-
-        {/* The Main Body (Sun/Moon) */}
         <motion.circle
           cx="12"
           cy="12"
           fill="currentColor"
           mask="url(#moon-mask)"
           animate={{
-            r: isDark ? 9 : 5, // Sun is small (5), Moon is large (9)
+            r: isDark ? 9 : 5,
           }}
           transition={springConfig}
         />
-
-        {/* The Sun Rays */}
         <motion.g
           stroke="currentColor"
           animate={{
-            opacity: isDark ? 0 : 1, // Hide rays in dark mode
-            scale: isDark ? 0 : 1, // Shrink rays in dark mode
+            opacity: isDark ? 0 : 1,
+            scale: isDark ? 0 : 1,
           }}
           transition={springConfig}
         >
