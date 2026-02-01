@@ -23,3 +23,29 @@ body {
 ::view-transition-new(root) {
   z-index: 9999;
 }
+
+/* The Hidden Layer */
+.bg-constellations {
+  background-image: url('/constellations-bg.png'); /* Put your image in public/ */
+  background-size: 400px; /* Adjust based on your image resolution */
+  background-repeat: repeat;
+  pointer-events: none; /* Clicks pass through to buttons below */
+
+  /* --- LIGHT MODE DEFAULT --- */
+  /* 1. Invert colors (White -> Black) */
+  /* 2. Lower brightness so it's a subtle grey, not harsh black */
+  filter: invert(1) brightness(0.4) contrast(0.8);
+
+  /* Ensure smooth transition if you toggle themes while the egg is active */
+  transition:
+    filter 0.3s ease-in-out,
+    opacity 1s ease-in-out;
+}
+
+/* --- DARK MODE OVERRIDE --- */
+/* When the parent html has the 'dark' class, reset the filter */
+.dark .bg-constellations {
+  filter: none;
+  /* Optional: You can add mix-blend-mode back ONLY for dark mode if you prefer that look */
+  /* mix-blend-mode: overlay; */
+}

@@ -5,8 +5,14 @@ import { Music, Disc } from 'lucide-react';
 
 const MusicPlayerWidget = () => {
   const Playlist = [
-    { title: 'Lofi Beats', src: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3' },
-    { title: 'Night Walk', src: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3' },
+    {
+      title: 'sad toï - Love Affair in Kyoto',
+      src: '/music/sadtoi-love-affair.m4a',
+    },
+    {
+      title: 'Birocratic - Lovely Rita',
+      src: '/music/lovely-rita.m4a',
+    },
   ];
 
   const [currentTrack, setTrack] = React.useState(0);
@@ -57,6 +63,7 @@ const MusicPlayerWidget = () => {
           showDownloadProgress={false}
           onClickNext={handleClickNext}
           onEnded={handleClickNext}
+          preload="none"
         />
       </div>
     </div>

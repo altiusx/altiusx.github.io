@@ -1,29 +1,62 @@
-import React from 'react';
+import React, { useRef, useState } from 'react';
 import { flushSync } from 'react-dom';
 import { motion } from 'framer-motion';
 
 const ThemeToggle = () => {
-  const [theme, setTheme] = React.useState(localStorage.getItem('theme') || 'dark');
+  const [theme, setTheme] = useState(localStorage.getItem('theme') || 'dark');
   const isDark = theme === 'dark';
 
+  // STATE
+  const timerRef = useRef(null);
+  const ignoreClickRef = useRef(false); // <--- NEW: The "Don't Toggle" Flag
+  const [isHolding, setIsHolding] = useState(false);
+
   React.useEffect(() => {
-    if (isDark) {
-      document.documentElement.classList.add('dark');
-    } else {
-      document.documentElement.classList.remove('dark');
-    }
+    if (isDark) document.documentElement.classList.add('dark');
+    else document.documentElement.classList.remove('dark');
     localStorage.setItem('theme', theme);
   }, [theme, isDark]);
 
+  // --- LONG PRESS HANDLERS ---
+  const startPress = () => {
+    ignoreClickRef.current = false; // Reset flag on fresh press
+    setIsHolding(true);
+
+    timerRef.current = setTimeout(() => {
+      // 1. FIRE THE EVENT
+      window.dispatchEvent(new Event('unlock-constellations'));
+
+      // 2. SET THE FLAG: Tell MouseUp to ignore the next click
+      ignoreClickRef.current = true;
+
+      // 3. KILL THE GLOW: Immediately stop the visual effect
+      setIsHolding(false);
+    }, 2000);
+  };
+
+  const cancelPress = () => {
+    setIsHolding(false);
+    if (timerRef.current) {
+      clearTimeout(timerRef.current);
+    }
+  };
+
+  // --- TOGGLE LOGIC (Short Click) ---
   const toggleTheme = async (e) => {
-    // 1. Check if the browser supports the API (Chrome/Edge/Arc)
+    cancelPress(); // Ensure timer is dead
+
+    // THE FIX: If this was a long press, STOP here.
+    if (ignoreClickRef.current) {
+      ignoreClickRef.current = false; // Reset for next time
+      return;
+    }
+
+    // ... Standard View Transition Logic ...
     if (!document.startViewTransition) {
       setTheme(isDark ? 'light' : 'dark');
       return;
     }
 
-    // 2. Calculate distance to furthest corner from the click
-    // This ensures the circle grows enough to cover the whole screen
     const x = e.clientX;
     const y = e.clientY;
     const endRadius = Math.hypot(
@@ -31,42 +64,48 @@ const ThemeToggle = () => {
       Math.max(y, window.innerHeight - y)
     );
 
-    // 3. Take the snapshot
     const transition = document.startViewTransition(() => {
-      // Force React to update the DOM *now* so the "New" snapshot is correct
       flushSync(() => {
         setTheme(isDark ? 'light' : 'dark');
       });
     });
 
-    // 4. Run the animation logic once the snapshot is ready
     await transition.ready;
-
-    // Animate the "New" view clipping in a circle
     const clipPath = [`circle(0px at ${x}px ${y}px)`, `circle(${endRadius}px at ${x}px ${y}px)`];
-
     document.documentElement.animate(
-      {
-        clipPath: clipPath,
-      },
-      {
-        duration: 700,
-        easing: 'ease-in',
-        // This targets the "New" snapshot (the incoming theme)
-        pseudoElement: '::view-transition-new(root)',
-      }
+      { clipPath: clipPath },
+      { duration: 500, easing: 'ease-in', pseudoElement: '::view-transition-new(root)' }
     );
   };
 
-  // ANIMATION CONFIG (Icon Physics)
-  const springConfig = { type: 'spring', stiffness: 75, damping: 15 };
+  // ANIMATION CONFIG
+  const springConfig = { type: 'spring', stiffness: 100, damping: 15 };
 
   return (
     <button
-      onClick={toggleTheme}
-      className="p-2 rounded-full hover:bg-black/5 dark:hover:bg-white/10 transition-colors group relative z-50"
+      onMouseDown={startPress}
+      onMouseUp={toggleTheme} // <--- Cleaned up: logic is inside the function
+      onMouseLeave={cancelPress}
+      onTouchStart={startPress}
+      onTouchEnd={(e) => {
+        e.preventDefault(); // Stop mobile ghost clicks
+        toggleTheme(e);
+      }}
+      className="p-2 rounded-full hover:bg-black/5 dark:hover:bg-white/10 transition-colors group relative z-50 overflow-hidden"
       aria-label="Toggle Theme"
+      // Remove default tap highlight on mobile
+      style={{ WebkitTapHighlightColor: 'transparent' }}
     >
+      {/* GLOW EFFECT (Only shows while holding) */}
+      {isHolding && (
+        <motion.div
+          initial={{ scale: 0, opacity: 0.2 }}
+          animate={{ scale: 2 }}
+          transition={{ duration: 2 }} // Match the timer duration (2s)
+          className="absolute inset-0 bg-hideout-accent rounded-full pointer-events-none"
+        />
+      )}
+
       <motion.svg
         xmlns="http://www.w3.org/2000/svg"
         width="24"
@@ -76,10 +115,8 @@ const ThemeToggle = () => {
         strokeWidth="2"
         strokeLinecap="round"
         strokeLinejoin="round"
-        className="stroke-slate-900 dark:stroke-white fill-slate-900 dark:fill-white"
-        animate={{
-          rotate: isDark ? 40 : 90,
-        }}
+        className="stroke-slate-900 dark:stroke-white fill-slate-900 dark:fill-white relative z-10"
+        animate={{ rotate: isDark ? 40 : 90 }}
         transition={springConfig}
       >
         <mask id="moon-mask">
@@ -89,10 +126,7 @@ const ThemeToggle = () => {
             cy="4"
             r="9"
             fill="black"
-            animate={{
-              cx: isDark ? 12 : 30,
-              cy: isDark ? 4 : 0,
-            }}
+            animate={{ cx: isDark ? 12 : 30, cy: isDark ? 4 : 0 }}
             transition={springConfig}
           />
         </mask>
@@ -101,17 +135,12 @@ const ThemeToggle = () => {
           cy="12"
           fill="currentColor"
           mask="url(#moon-mask)"
-          animate={{
-            r: isDark ? 9 : 5,
-          }}
+          animate={{ r: isDark ? 9 : 5 }}
           transition={springConfig}
         />
         <motion.g
           stroke="currentColor"
-          animate={{
-            opacity: isDark ? 0 : 1,
-            scale: isDark ? 0 : 1,
-          }}
+          animate={{ opacity: isDark ? 0 : 1, scale: isDark ? 0 : 1 }}
           transition={springConfig}
         >
           <line x1="12" y1="1" x2="12" y2="3" />
