@@ -8,7 +8,7 @@ const ThemeToggle = () => {
 
   // STATE
   const timerRef = useRef(null);
-  const ignoreClickRef = useRef(false); // <--- NEW: The "Don't Toggle" Flag
+  const ignoreClickRef = useRef(false);
   const [isHolding, setIsHolding] = useState(false);
 
   React.useEffect(() => {
@@ -19,17 +19,12 @@ const ThemeToggle = () => {
 
   // --- LONG PRESS HANDLERS ---
   const startPress = () => {
-    ignoreClickRef.current = false; // Reset flag on fresh press
+    ignoreClickRef.current = false;
     setIsHolding(true);
 
     timerRef.current = setTimeout(() => {
-      // 1. FIRE THE EVENT
       window.dispatchEvent(new Event('unlock-constellations'));
-
-      // 2. SET THE FLAG: Tell MouseUp to ignore the next click
       ignoreClickRef.current = true;
-
-      // 3. KILL THE GLOW: Immediately stop the visual effect
       setIsHolding(false);
     }, 2000);
   };
@@ -41,24 +36,24 @@ const ThemeToggle = () => {
     }
   };
 
-  // --- TOGGLE LOGIC (Short Click) ---
+  // --- TOGGLE LOGIC ---
   const toggleTheme = async (e) => {
-    cancelPress(); // Ensure timer is dead
+    cancelPress();
 
-    // THE FIX: If this was a long press, STOP here.
     if (ignoreClickRef.current) {
-      ignoreClickRef.current = false; // Reset for next time
+      ignoreClickRef.current = false;
       return;
     }
 
-    // ... Standard View Transition Logic ...
     if (!document.startViewTransition) {
       setTheme(isDark ? 'light' : 'dark');
       return;
     }
 
-    const x = e.clientX;
-    const y = e.clientY;
+    // Fallback for touch events where clientX might be missing
+    const x = e.clientX ?? e.changedTouches?.[0]?.clientX ?? window.innerWidth / 2;
+    const y = e.clientY ?? e.changedTouches?.[0]?.clientY ?? window.innerHeight / 2;
+
     const endRadius = Math.hypot(
       Math.max(x, window.innerWidth - x),
       Math.max(y, window.innerHeight - y)
@@ -78,34 +73,34 @@ const ThemeToggle = () => {
     );
   };
 
-  // ANIMATION CONFIG
   const springConfig = { type: 'spring', stiffness: 100, damping: 15 };
 
   return (
     <button
       onMouseDown={startPress}
-      onMouseUp={toggleTheme} // <--- Cleaned up: logic is inside the function
+      onMouseUp={toggleTheme}
       onMouseLeave={cancelPress}
       onTouchStart={startPress}
       onTouchEnd={(e) => {
-        e.preventDefault(); // Stop mobile ghost clicks
+        e.preventDefault();
         toggleTheme(e);
       }}
-      className="p-2 rounded-full hover:bg-black/5 dark:hover:bg-white/10 transition-colors group relative z-50 overflow-hidden"
+      // to prevent iOS activating text selection on long press
+      className="p-2 rounded-full hover:bg-black/5 dark:hover:bg-white/10 transition-colors group relative z-50 overflow-hidden select-none [-webkit-touch-callout:none] [-webkit-user-select:none]"
       aria-label="Toggle Theme"
-      // Remove default tap highlight on mobile
       style={{ WebkitTapHighlightColor: 'transparent' }}
     >
-      {/* GLOW EFFECT (Only shows while holding) */}
+      {/* GLOW EFFECT */}
       {isHolding && (
         <motion.div
           initial={{ scale: 0, opacity: 0.2 }}
           animate={{ scale: 2 }}
-          transition={{ duration: 2 }} // Match the timer duration (2s)
+          transition={{ duration: 2 }}
           className="absolute inset-0 bg-hideout-accent rounded-full pointer-events-none"
         />
       )}
 
+      {/* ICON SVG */}
       <motion.svg
         xmlns="http://www.w3.org/2000/svg"
         width="24"

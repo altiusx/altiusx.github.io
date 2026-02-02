@@ -14,18 +14,17 @@ const Card = ({ children, className = '', delay = 0 }) => (
     }}
     className={`
       rounded-3xl p-6 relative overflow-hidden group
-      
-      /* 1. REMOVED 'transition-all' to stop the jerk */
       transition-colors transition-shadow duration-300 
       
       /* --- LIGHT MODE --- */
       bg-white border border-zinc-200 
-      /* Removed 'hover:-translate-y-1' because whileHover handles it now */
-      hover:border-hideout-accent/50 hover:shadow-xl 
+      md:hover:border-hideout-accent/50 md:hover:shadow-xl 
 
       /* --- DARK MODE --- */
       dark:bg-hideout-card dark:border-white/5 dark:shadow-none
-      dark:hover:border-hideout-accent dark:hover:bg-white/5 
+      dark:md:hover:border-hideout-accent shadow-[0_0_15px_-3px_rgba(249,115,22,0.3)] dark:md:hover:bg-white/5 
+
+      active:border-hideout-accent dark:active:border-hideout-accent
       
       ${className}
     `}

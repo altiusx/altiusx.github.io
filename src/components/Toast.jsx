@@ -26,7 +26,7 @@ const Toast = ({ message, show, onClose }) => {
             color: 'var(--toast-text)',
           }}
         >
-          {/* We use a style block here for precise color mapping if not using Tailwind classes directly */}
+          {/* use a style block here for precise color mapping if not using Tailwind classes directly */}
           <div className="bg-zinc-900/90 dark:bg-hideout-card/90 text-white flex items-center gap-3 px-5 py-2.5 rounded-full border border-zinc-700 dark:border-hideout-accent/20 shadow-xl">
             <Sparkles
               size={18}

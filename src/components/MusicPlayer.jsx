@@ -1,10 +1,14 @@
 import React from 'react';
 import AudioPlayer from 'react-h5-audio-player';
 import 'react-h5-audio-player/lib/styles.css';
-import { Music, Disc } from 'lucide-react';
+import { Music, Disc3 } from 'lucide-react';
 
 const MusicPlayerWidget = () => {
   const Playlist = [
+    {
+      title: 'Philanthrope x Yasper - Slopes',
+      src: '/music/slopes.m4a',
+    },
     {
       title: 'sad toï - Love Affair in Kyoto',
       src: '/music/sadtoi-love-affair.m4a',
@@ -26,7 +30,7 @@ const MusicPlayerWidget = () => {
       {/* Styles are mostly neutral (Orange), so they work on White or Dark Blue */}
       <style>{`
         .rhap_container { background: transparent !important; box-shadow: none !important; padding: 10px 20px !important; }
-        .rhap_main-controls-button { color: #fb923c !important; font-size: 24px !important; }
+        .rhap_main-controls-button { color: #fb923c !important; font-size: 2rem !important; }
         .rhap_progress-filled { background-color: #fb923c !important; }
         .rhap_time, .rhap_volume-controls { display: none !important; }
       `}</style>
@@ -47,9 +51,13 @@ const MusicPlayerWidget = () => {
       </div>
 
       {/* DECORATION */}
-      <div className="absolute -right-4 top-4 opacity-10 animate-spin-slow pointer-events-none">
+      <div className="absolute -top-12 -right-12 text-slate-100 dark:text-white/5 z-0 pointer-events-none">
         {/* Icon color needs to switch too */}
-        <Disc size={90} className="text-slate-900 dark:text-white" />
+        <Disc3
+          size={140}
+          strokeWidth={0.5}
+          className="transition-transform duration-[3s] ease-in-out group-hover:rotate-90"
+        />
       </div>
 
       {/* PLAYER */}
@@ -57,7 +65,7 @@ const MusicPlayerWidget = () => {
         <AudioPlayer
           autoPlay={false}
           src={Playlist[currentTrack].src}
-          showJumpControls={false}
+          showJumpControls={true}
           showSkipControls={true}
           layout="stacked-reverse"
           showDownloadProgress={false}
