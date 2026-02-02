@@ -152,25 +152,19 @@ const App = () => {
                 className="transition-transform duration-[3s] ease-in-out"
               />
             </div>
-            <div className="flex flex-wrap gap-2">
-              {[
-                'React',
-                'Angular',
-                'Python',
-                'TypeScript',
-                'Java Spring Boot',
-                'MongoDB',
-                'SQL',
-              ].map((tech) => (
-                <span
-                  key={tech}
-                  className="px-2 py-1 text-[10px] rounded border transition-colors
+            <div className="flex flex-wrap gap-2 pr-14">
+              {['React', 'Angular', 'Python', 'TypeScript', 'Java', 'MongoDB', 'Spring Boot'].map(
+                (tech) => (
+                  <span
+                    key={tech}
+                    className="px-2 py-1 text-[10px] rounded border transition-colors
                   bg-zinc-100 border-zinc-200 text-slate-700 
                   dark:bg-white/5 dark:border-white/5 dark:text-hideout-text"
-                >
-                  {tech}
-                </span>
-              ))}
+                  >
+                    {tech}
+                  </span>
+                )
+              )}
             </div>
             <button
               onClick={() => setShowProjectsModal(true)}
@@ -231,7 +225,12 @@ const App = () => {
             </div>
           </Card>
 
-          {/* 6. SOCIALS */}
+          {/* 6. MUSIC PLAYER */}
+          <Card className="lg:col-span-1 !p-0 group hover:ring-2 hover:ring-hideout-accent/50 transition-all">
+            <MusicPlayerWidget />
+          </Card>
+
+          {/* 7. SOCIALS */}
           <Card className="lg:col-span-1 flex flex-col justify-center items-center gap-4 bg-gradient-to-b dark:from-hideout-card dark:to-[#162032]">
             <div className="flex gap-4">
               {/* GitHub Button */}
@@ -249,11 +248,6 @@ const App = () => {
               />
             </div>
             <p className={monoLabel}>@altiusx</p>
-          </Card>
-
-          {/* 7. MUSIC PLAYER */}
-          <Card className="lg:col-span-1 !p-0 group hover:ring-2 hover:ring-hideout-accent/50 transition-all">
-            <MusicPlayerWidget />
           </Card>
 
           {/* RENDER THE MODAL AT THE BOTTOM */}
