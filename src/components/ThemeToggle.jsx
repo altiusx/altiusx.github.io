@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import { useRef, useState, useEffect } from 'react';
 import { flushSync } from 'react-dom';
 import { motion } from 'framer-motion';
 
@@ -11,7 +11,7 @@ const ThemeToggle = () => {
   const ignoreClickRef = useRef(false);
   const [isHolding, setIsHolding] = useState(false);
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (isDark) document.documentElement.classList.add('dark');
     else document.documentElement.classList.remove('dark');
     localStorage.setItem('theme', theme);

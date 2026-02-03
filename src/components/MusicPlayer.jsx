@@ -1,4 +1,4 @@
-import React from 'react';
+import { useState } from 'react';
 import AudioPlayer from 'react-h5-audio-player';
 import 'react-h5-audio-player/lib/styles.css';
 import { Music, Disc3 } from 'lucide-react';
@@ -19,7 +19,7 @@ const MusicPlayerWidget = () => {
     },
   ];
 
-  const [currentTrack, setTrack] = React.useState(0);
+  const [currentTrack, setTrack] = useState(0);
 
   const handleClickNext = () => {
     setTrack((currentTrack + 1) % Playlist.length);

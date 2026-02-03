@@ -44,7 +44,7 @@ const TerminalModal = ({ isOpen, onClose }) => {
         );
 
       await addLine('> initiating_handshake...', 300);
-      await addLine('> connecting to host: ALTIUS_X_MAIN...', 400);
+      await addLine('> connecting to host: ALTIUSX_MAIN...', 400);
       await addLine('> access granted.', 200);
       await addLine('> fetch --history --verbose', 300);
       await addLine('----------------------------------------', 100);

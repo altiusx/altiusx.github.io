@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState, useEffect } from 'react';
 import {
   Github,
   Linkedin,
@@ -9,8 +9,11 @@ import {
   LaptopMinimal,
   Camera,
   Compass,
-  Database,
+  Brush,
   Server,
+  Database,
+  Eye,
+  Image as ImageIcon,
 } from 'lucide-react';
 import MusicPlayerWidget from './components/MusicPlayer';
 import ThemeToggle from './components/ThemeToggle';
@@ -30,7 +33,7 @@ const App = () => {
   const [showTravelModal, setShowTravelModal] = useState(false);
   const [showProjectsModal, setShowProjectsModal] = useState(false);
 
-  // label styles
+  // common styles (to move to a separate file)
   const modalButton =
     'absolute bottom-5 right-5 w-12 h-12 rounded-full bg-orange-100 dark:bg-hideout-accent/20 flex items-center justify-center mb-4 transition-all hover:scale-110 hover:bg-orange-200 dark:hover:bg-hideout-accent/30 cursor-pointer';
   const cardLabelPosition =
@@ -42,7 +45,7 @@ const App = () => {
   const statusLabel =
     'bg-green-100 text-green-700 border-green-200 dark:bg-green-500/10 dark:text-green-400 dark:border-green-500/20 text-xs font-mono py-1 px-2 rounded-full border';
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (easterEggActive) {
       setShowToast(true);
     }
@@ -140,7 +143,7 @@ const App = () => {
           </Card>
 
           {/* 3. TECH STACK */}
-          <Card className={cardLabelPosition}>
+          <Card className="lg:col-span-1 lg:row-span-2 relative overflow-hidden flex flex-col justify-between h-full">
             <div className={monoLabelPosition}>
               <Database size={16} className="text-hideout-accent" />
               <span className={monoLabelCaps}>Tech_Arsenal</span>
@@ -152,19 +155,51 @@ const App = () => {
                 className="transition-transform duration-[3s] ease-in-out"
               />
             </div>
-            <div className="flex flex-wrap gap-2 pr-14">
-              {['React', 'Angular', 'Python', 'TypeScript', 'Java', 'MongoDB', 'Spring Boot'].map(
-                (tech) => (
-                  <span
-                    key={tech}
-                    className="px-2 py-1 text-[10px] rounded border transition-colors
-                  bg-zinc-100 border-zinc-200 text-slate-700 
-                  dark:bg-white/5 dark:border-white/5 dark:text-hideout-text"
-                  >
-                    {tech}
-                  </span>
-                )
-              )}
+            <div className="flex-grow font-mono text-[10px] leading-relaxed text-slate-500 dark:text-zinc-500 overflow-hidden">
+              {/* Command Line (Visible on All) */}
+              <div className="flex gap-2 mb-3">
+                <span className="text-green-500 font-bold">➜</span>
+                <span className="text-slate-700 dark:text-zinc-300">
+                  detect_stack.sh <span className="text-slate-400">--verbose</span>
+                </span>
+              </div>
+
+              {/* Log Output */}
+              <div className="pl-4 border-l border-zinc-200 dark:border-white/10 ml-1.5 space-y-1.5">
+                <p>
+                  Target: <span className="text-hideout-accent">what_i_do_at_work</span>
+                </p>
+                <p className="opacity-50">Scanning environment...</p>
+
+                {/* Hide these details on Mobile (hidden), Show on Desktop (md:block) --- */}
+                <div className="hidden md:block">
+                  {/* Group 1 */}
+                  <div className="mt-3">
+                    <p className="text-slate-400 dark:text-zinc-600 font-bold mb-0.5">
+                      # Core_Frameworks
+                    </p>
+                    <p>[✓] React SSPA</p>
+                    <p>[✓] Java Spring Boot</p>
+                  </div>
+
+                  {/* Group 2 */}
+                  <div className="mt-3">
+                    <p className="text-slate-400 dark:text-zinc-600 font-bold mb-0.5">
+                      # Services_&_Tools
+                    </p>
+                    <p>[✓] MongoDB</p>
+                    <p>[✓] Openshift</p>
+                    <p>[✓] GitLab Runner (CI/CD)</p>
+                  </div>
+                </div>
+                {/* ------------------------------------------------------------------------------- */}
+
+                {/* Success Message (Visible on All) */}
+                {/* On mobile, this will appear right after "Scanning environment..." */}
+                <p className="mt-2 md:mt-4 animate-pulse text-hideout-accent">
+                  &gt; Analysis complete. Awaiting input_
+                </p>
+              </div>
             </div>
             <button
               onClick={() => setShowProjectsModal(true)}
@@ -209,20 +244,50 @@ const App = () => {
           </Card>
 
           {/* 5. ART & CREATIVE */}
-          <Card className="lg:col-span-2 relative group cursor-pointer overflow-hidden !p-0">
-            {/* Replace this bg-slate-800 with actual image path later */}
-            <div className="absolute inset-0 bg-slate-800 dark:bg-hideout-card opacity-90 group-hover:scale-105 transition-transform duration-700"></div>
-
-            <div className="relative z-10 flex flex-col justify-end h-full p-6 bg-gradient-to-t from-black/80 to-transparent">
-              <div className={monoLabelPosition}>
-                <Palette size={16} className="text-hideout-accent" />
-                <span className={monoLabelCaps}>Creative_Side</span>
-              </div>
-              <h3 className="text-xl font-bold text-white">Digital Illustration</h3>
-              <p className="text-sm text-gray-300">
-                Sketches, remastered works done with Sketchbook and Procreate.
-              </p>
+          <Card className={cardLabelPosition}>
+            <div className={monoLabelPosition}>
+              <Brush size={16} className="text-hideout-accent" />
+              <span className={monoLabelCaps}>Creative_Side</span>
             </div>
+            <div className="absolute -top-8 -right-8 text-slate-100 dark:text-white/5 z-0 pointer-events-none">
+              <Palette
+                size={120}
+                strokeWidth={0.5}
+                className="transition-transform duration-[3s] ease-in-out group-hover:rotate-45"
+              />
+            </div>
+
+            {/* 2. CONTENT LAYER */}
+            <div>
+              <div className="space-y-2 font-mono text-[10px] text-slate-600 dark:text-zinc-400 w-[75%]">
+                <div className="flex items-center gap-2 p-1.5 rounded bg-zinc-50 dark:bg-white/5 border border-zinc-100 dark:border-white/5">
+                  <Eye size={12} className="text-blue-400 shrink-0" /> {/* Added shrink-0 */}
+                  <span className="truncate">final_render_v2.png</span> {/* Added truncate */}
+                </div>
+
+                <div className="flex items-center gap-2 p-1.5 rounded bg-zinc-50 dark:bg-white/5 border border-zinc-100 dark:border-white/5 opacity-75">
+                  <Eye size={12} className="text-slate-400 shrink-0" />
+                  <span className="truncate">shadows_lighting</span>
+                </div>
+
+                <div className="flex items-center gap-2 p-1.5 rounded bg-zinc-50 dark:bg-white/5 border border-zinc-100 dark:border-white/5 opacity-50">
+                  <Eye size={12} className="text-slate-400 shrink-0" />
+                  <span className="truncate">base_sketch_layer</span>
+                </div>
+              </div>
+            </div>
+            <div className="flex justify-end mt-6">
+              <button
+                onClick={() => {
+                  /* Open Art Gallery Modal if you have one */
+                }}
+                className={modalButton}
+                title="Open Art Gallery"
+              >
+                <ImageIcon className="text-hideout-accent" size={24} />
+              </button>
+            </div>
+            {/* </div> */}
           </Card>
 
           {/* 6. MUSIC PLAYER */}

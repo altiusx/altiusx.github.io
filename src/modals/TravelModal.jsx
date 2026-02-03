@@ -2,67 +2,27 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { X, MapPin } from 'lucide-react';
 import { useState } from 'react';
 import CommonHeader from './CommonHeader';
-
-// Placeholder Data
-const travelData = {
-  'Hong Kong': [
-    {
-      src: 'https://images.unsplash.com/photo-1506318137071-a8bcbf6d919d?auto=format&fit=crop&w=800&q=80',
-      caption: 'Neon Nights',
-    },
-    {
-      src: 'https://images.unsplash.com/photo-1536599018102-9f803361e194?auto=format&fit=crop&w=800&q=80',
-      caption: 'Peak View',
-    },
-    {
-      src: 'https://images.unsplash.com/photo-1558276566-731383823793?auto=format&fit=crop&w=800&q=80',
-      caption: 'Old Streets',
-    },
-  ],
-  Tokyo: [
-    {
-      src: 'https://images.unsplash.com/photo-1540959733332-eab4deabeeaf?auto=format&fit=crop&w=800&q=80',
-      caption: 'Shinjuku',
-    },
-    {
-      src: 'https://images.unsplash.com/photo-1503899036084-c55cdd92da26?auto=format&fit=crop&w=800&q=80',
-      caption: 'Tokyo Tower',
-    },
-    {
-      src: 'https://images.unsplash.com/photo-1528360983277-13d9b152c6d4?auto=format&fit=crop&w=800&q=80',
-      caption: 'Shibuya Crossing',
-    },
-  ],
-  Taipei: [
-    {
-      src: 'https://images.unsplash.com/photo-1470004914212-05527e49370b?auto=format&fit=crop&w=800&q=80',
-      caption: 'Taipei 101',
-    },
-    {
-      src: 'https://images.unsplash.com/photo-1552993873-0dd1110e025f?auto=format&fit=crop&w=800&q=80',
-      caption: 'Night Markets',
-    },
-    {
-      src: 'https://images.unsplash.com/photo-1596425985834-31da4c052528?auto=format&fit=crop&w=800&q=80',
-      caption: 'Jiufen',
-    },
-  ],
-};
+import { travelData } from '../data/travelData';
 
 const TravelModal = ({ isOpen, onClose }) => {
-  const [activeCity, setActiveCity] = useState('Hong Kong');
+  const [activeCity, setActiveCity] = useState(Object.keys(travelData)[0]);
 
   return (
-    <CommonHeader isOpen={isOpen} onClose={onClose} title="user@altiusx:~/travel_log">
+    <CommonHeader
+      isOpen={isOpen}
+      onClose={onClose}
+      title="user@altiusx:~/travel_log"
+      className="!bg-zinc-50 dark:!bg-[#0c0c0c] border-zinc-200 dark:border-zinc-800"
+    >
       {/* --- BODY CONTENT --- */}
-      <div className="flex-1 overflow-hidden flex flex-col bg-white dark:bg-zinc-900">
+      <div className="flex-1 overflow-hidden flex flex-col bg-inherit">
         {/* Internal Header (Keeps the context clear) */}
         <div className="p-6 pb-2">
           <h2 className="text-2xl font-bold text-slate-900 dark:text-white flex items-center gap-2">
-            <MapPin className="text-hideout-accent" /> Travel Gallery (Placeholder WIP)
+            <MapPin className="text-hideout-accent" /> Travel Gallery
           </h2>
-          <p className="text-sm text-slate-500 dark:text-hideout-muted">
-            /home/altiusx/photos/{activeCity.toLowerCase().replace(' ', '_')}
+          <p className="text-sm text-slate-500 dark:text-hideout-muted font-mono">
+            git commit -m "Add new travel photos"
           </p>
         </div>
 

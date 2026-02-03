@@ -4,13 +4,24 @@ import CommonHeader from './CommonHeader';
 // 🛠️ CONFIG: Your Projects Data
 const projects = [
   {
-    title: 'Portfolio v2 (current)',
+    title: 'Portfolio v2 (2026)',
     description:
       'The current site you are looking at. Built with React, Vite, and Tailwind CSS with a focus on component architecture.',
     tech: ['React', 'Tailwind', 'Framer Motion'],
     links: {
       repo: 'https://github.com/altiusx/altiusx.github.io',
       demo: 'https://altiusx.github.io',
+    },
+    featured: true,
+  },
+  {
+    title: 'SplitPals (2025, WIP)',
+    description:
+      'An iOS app to help friends split bills and manage shared expenses easily. Currently only keeps track of expenses and is still in development.',
+    tech: ['Swift', 'SwiftUI'],
+    links: {
+      repo: 'https://github.com/altiusx/splitpals',
+      demo: '',
     },
     featured: true,
   },
@@ -56,7 +67,7 @@ const ProjectsModal = ({ isOpen, onClose }) => {
       {/* Header Area */}
       <div className="p-6 pb-2 shrink-0 bg-inherit">
         <h2 className="text-2xl font-bold text-slate-900 dark:text-white flex items-center gap-2">
-          <FolderGit2 className="text-hideout-accent" /> Project Archives
+          <FolderGit2 className="text-hideout-accent" /> Personal Projects
         </h2>
         <p className="text-sm text-slate-500 dark:text-hideout-muted font-mono">
           git log --oneline --graph --all
