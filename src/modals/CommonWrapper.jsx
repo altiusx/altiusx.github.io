@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 
-const CommonHeader = ({ isOpen, onClose, title, children, className = '' }) => {
+const CommonWrapper = ({ isOpen, onClose, title, children, className = '' }) => {
   useEffect(() => {
     if (isOpen) {
       // Prevent scrolling
@@ -36,7 +36,19 @@ const CommonHeader = ({ isOpen, onClose, title, children, className = '' }) => {
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.95, y: 20 }}
             transition={{ type: 'spring', damping: 25, stiffness: 300 }}
-            className={`fixed inset-0 m-auto z-50 w-full max-w-3xl h-[80vh] bg-white dark:bg-zinc-900 rounded-xl overflow-hidden shadow-2xl flex flex-col border border-zinc-800 ${className}`}
+            className={`
+              fixed inset-0 m-auto z-50 
+              bg-white dark:bg-zinc-900 
+              rounded-xl overflow-hidden shadow-2xl flex flex-col border border-zinc-800
+              
+              /* --- UNIFIED MOBILE SIZE --- */
+              w-[95vw] h-[75vh]
+              
+              /* --- DESKTOP DEFAULTS (Overridable) --- */
+              md:w-full md:h-[80vh] md:max-w-3xl
+              
+              ${className}
+            `}
           >
             {/* 3. MAC-STYLE TITLE BAR (Standardized) */}
             <div className="p-2 flex items-center justify-between border-b border-zinc-800 shrink-0 select-none bg-inherit">
@@ -65,4 +77,4 @@ const CommonHeader = ({ isOpen, onClose, title, children, className = '' }) => {
   );
 };
 
-export default CommonHeader;
+export default CommonWrapper;

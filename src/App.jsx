@@ -3,6 +3,7 @@ import useEasterEgg from './hooks/useEasterEgg';
 import TerminalModal from './modals/TerminalModal';
 import TravelModal from './modals/TravelModal';
 import ProjectsModal from './modals/ProjectsModal';
+import ArtModal from './modals/ArtModal';
 import HeroCard from './components/cards/HeroCard';
 import EduCard from './components/cards/EduCard';
 import TechCard from './components/cards/TechCard';
@@ -21,6 +22,7 @@ const App = () => {
   const [showToast, setShowToast] = useState(false);
   const [showTravelModal, setShowTravelModal] = useState(false);
   const [showProjectsModal, setShowProjectsModal] = useState(false);
+  const [showArtModal, setShowArtModal] = useState(false);
 
   useEffect(() => {
     if (easterEggActive) {
@@ -82,7 +84,7 @@ const App = () => {
           <TravelCard onClick={() => setShowTravelModal(true)} />
 
           {/* 5. ART & CREATIVE */}
-          <ArtCard />
+          <ArtCard onClick={() => setShowArtModal(true)} />
 
           {/* 6. MUSIC PLAYER */}
           <LofiCard />
@@ -94,6 +96,7 @@ const App = () => {
           <TerminalModal isOpen={showTerminal} onClose={() => setShowTerminal(false)} />
           <ProjectsModal isOpen={showProjectsModal} onClose={() => setShowProjectsModal(false)} />
           <TravelModal isOpen={showTravelModal} onClose={() => setShowTravelModal(false)} />
+          <ArtModal isOpen={showArtModal} onClose={() => setShowArtModal(false)} />
         </div>
 
         <footer className="mt-20 text-center text-slate-400 dark:text-hideout-muted text-sm font-mono">

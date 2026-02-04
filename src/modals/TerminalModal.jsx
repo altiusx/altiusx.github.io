@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useRef } from 'react';
-import CommonHeader from './CommonHeader';
+import CommonWrapper from './CommonWrapper';
 
 const TerminalModal = ({ isOpen, onClose }) => {
   const [lines, setLines] = useState([]);
@@ -79,7 +79,7 @@ const TerminalModal = ({ isOpen, onClose }) => {
   }, [lines]);
 
   return (
-    <CommonHeader
+    <CommonWrapper
       isOpen={isOpen}
       onClose={onClose}
       title="user@altiusx:~/career_edu_log"
@@ -107,7 +107,7 @@ const TerminalModal = ({ isOpen, onClose }) => {
         {/* Blinking Cursor */}
         <div className="mt-2 animate-pulse">_</div>
       </div>
-    </CommonHeader>
+    </CommonWrapper>
   );
 };
 

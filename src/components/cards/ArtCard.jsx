@@ -9,7 +9,7 @@ import {
 } from '../../styles/stylingPatterns';
 import { Pencil, Palette, Brush } from 'lucide-react';
 
-const ArtCard = () => {
+const ArtCard = ({ onClick }) => {
   return (
     <Card className={cardLabelPosition}>
       <div className="h-full flex flex-col justify-between">
@@ -30,13 +30,7 @@ const ArtCard = () => {
             <p className={monoLabel}>Procreate • Sketchbook</p>
           </div>
         </div>
-        <button
-          onClick={() => {
-            /* Open Art Gallery Modal if you have one */
-          }}
-          className={modalButton}
-          title="Open Art Gallery"
-        >
+        <button onClick={onClick} className={modalButton} title="Open Art Gallery">
           <Brush className="text-hideout-accent" size={24} />
         </button>
       </div>

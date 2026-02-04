@@ -16,7 +16,7 @@ const TechCard = ({ onClick }) => {
           className="transition-transform duration-[3s] ease-in-out"
         />
       </div>
-      <div className="flex-grow font-mono text-[10px] leading-relaxed text-slate-500 dark:text-zinc-500 overflow-hidden">
+      <div className="mt-4 flex-grow font-mono text-[10px] leading-relaxed text-slate-500 dark:text-zinc-500 overflow-hidden">
         {/* Command Line (Visible on All) */}
         <div className="flex gap-2 mb-3">
           <span className="text-green-500 font-bold">➜</span>
@@ -28,7 +28,7 @@ const TechCard = ({ onClick }) => {
         {/* Log Output */}
         <div className="pl-4 border-l border-zinc-200 dark:border-white/10 ml-1.5 space-y-1.5">
           <p>
-            Target: <span className="text-hideout-accent">what_i_do_at_work</span>
+            Target: <span className="text-hideout-accent">work_skillsets</span>
           </p>
           <p className="opacity-50">Scanning environment...</p>
 
@@ -58,7 +58,7 @@ const TechCard = ({ onClick }) => {
           {/* Success Message (Visible on All) */}
           {/* On mobile, this will appear right after "Scanning environment..." */}
           <p className="mt-2 md:mt-4 animate-pulse text-hideout-accent">
-            &gt; Analysis complete. Awaiting input_
+            &gt; Awaiting user input_
           </p>
         </div>
       </div>
