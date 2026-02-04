@@ -7,7 +7,7 @@ import {
   Palette,
   Terminal,
   LaptopMinimal,
-  Camera,
+  Pencil,
   Compass,
   Brush,
   Server,
@@ -44,6 +44,7 @@ const App = () => {
   const monoLabelCaps = 'text-[10px] font-mono text-hideout-accent uppercase tracking-widest';
   const statusLabel =
     'bg-green-100 text-green-700 border-green-200 dark:bg-green-500/10 dark:text-green-400 dark:border-green-500/20 text-xs font-mono py-1 px-2 rounded-full border';
+  const smallCardHeaderText = 'text-lg font-bold text-slate-900 dark:text-white';
 
   useEffect(() => {
     if (easterEggActive) {
@@ -210,7 +211,7 @@ const App = () => {
             </button>
           </Card>
 
-          {/* 4. HOBBY/PHOTOS PLACEHOLDER */}
+          {/* 4. TRAVEL LOG */}
           <Card className={cardLabelPosition}>
             {/* Wrap the content in a div that triggers the click */}
             <div
@@ -230,7 +231,7 @@ const App = () => {
               </div>
 
               <div>
-                <h3 className="text-lg font-bold text-slate-900 dark:text-white">Singapore</h3>
+                <h3 className={smallCardHeaderText}>Singapore</h3>
                 <p className={monoLabel}>base_of_ops</p>
               </div>
             </div>
@@ -239,44 +240,30 @@ const App = () => {
               className={modalButton}
               title="Open Travel Gallery"
             >
-              <Camera className="text-hideout-accent" size={24} />
+              <ImageIcon className="text-hideout-accent" size={24} />
             </button>
           </Card>
 
           {/* 5. ART & CREATIVE */}
           <Card className={cardLabelPosition}>
-            <div className={monoLabelPosition}>
-              <Brush size={16} className="text-hideout-accent" />
-              <span className={monoLabelCaps}>Creative_Side</span>
-            </div>
-            <div className="absolute -top-8 -right-8 text-slate-100 dark:text-white/5 z-0 pointer-events-none">
-              <Palette
-                size={120}
-                strokeWidth={0.5}
-                className="transition-transform duration-[3s] ease-in-out group-hover:rotate-45"
-              />
-            </div>
-
-            {/* 2. CONTENT LAYER */}
-            <div>
-              <div className="space-y-2 font-mono text-[10px] text-slate-600 dark:text-zinc-400 w-[75%]">
-                <div className="flex items-center gap-2 p-1.5 rounded bg-zinc-50 dark:bg-white/5 border border-zinc-100 dark:border-white/5">
-                  <Eye size={12} className="text-blue-400 shrink-0" /> {/* Added shrink-0 */}
-                  <span className="truncate">final_render_v2.png</span> {/* Added truncate */}
-                </div>
-
-                <div className="flex items-center gap-2 p-1.5 rounded bg-zinc-50 dark:bg-white/5 border border-zinc-100 dark:border-white/5 opacity-75">
-                  <Eye size={12} className="text-slate-400 shrink-0" />
-                  <span className="truncate">shadows_lighting</span>
-                </div>
-
-                <div className="flex items-center gap-2 p-1.5 rounded bg-zinc-50 dark:bg-white/5 border border-zinc-100 dark:border-white/5 opacity-50">
-                  <Eye size={12} className="text-slate-400 shrink-0" />
-                  <span className="truncate">base_sketch_layer</span>
+            <div className="h-full flex flex-col justify-between">
+              <div className={monoLabelPosition}>
+                <Pencil size={16} className="text-hideout-accent" />
+                <span className={monoLabelCaps}>Creative_Side</span>
+              </div>
+              <div className="absolute -top-8 -right-8 text-slate-100 dark:text-white/5 z-0 pointer-events-none">
+                <Palette
+                  size={120}
+                  strokeWidth={0.5}
+                  className="transition-transform duration-[3s] ease-in-out group-hover:rotate-45"
+                />
+              </div>
+              <div>
+                <div>
+                  <h3 className={smallCardHeaderText}>Digital Art</h3>
+                  <p className={monoLabel}>Procreate • Sketchbook</p>
                 </div>
               </div>
-            </div>
-            <div className="flex justify-end mt-6">
               <button
                 onClick={() => {
                   /* Open Art Gallery Modal if you have one */
@@ -284,10 +271,9 @@ const App = () => {
                 className={modalButton}
                 title="Open Art Gallery"
               >
-                <ImageIcon className="text-hideout-accent" size={24} />
+                <Brush className="text-hideout-accent" size={24} />
               </button>
             </div>
-            {/* </div> */}
           </Card>
 
           {/* 6. MUSIC PLAYER */}
@@ -315,7 +301,7 @@ const App = () => {
             <p className={monoLabel}>@altiusx</p>
           </Card>
 
-          {/* RENDER THE MODAL AT THE BOTTOM */}
+          {/* RENDER THE MODALS AT THE BOTTOM */}
           <TerminalModal isOpen={showTerminal} onClose={() => setShowTerminal(false)} />
           <ProjectsModal isOpen={showProjectsModal} onClose={() => setShowProjectsModal(false)} />
           <TravelModal isOpen={showTravelModal} onClose={() => setShowTravelModal(false)} />
