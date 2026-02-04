@@ -1,5 +1,5 @@
 import { motion, AnimatePresence } from 'framer-motion';
-import { X, MapPin } from 'lucide-react';
+import { MapPin } from 'lucide-react';
 import { useState } from 'react';
 import CommonHeader from './CommonHeader';
 import { travelData } from '../data/travelData';
@@ -15,16 +15,17 @@ const TravelModal = ({ isOpen, onClose }) => {
       className="!bg-zinc-50 dark:!bg-[#0c0c0c] border-zinc-200 dark:border-zinc-800"
     >
       {/* --- BODY CONTENT --- */}
-      <div className="flex-1 overflow-hidden flex flex-col bg-inherit">
+      {/* <div className="flex-1 overflow-hidden flex flex-col bg-inherit"> */}
+      <div className="p-6 pb-2 shrink-0 bg-inherit">
         {/* Internal Header (Keeps the context clear) */}
-        <div className="p-6 pb-2">
-          <h2 className="text-2xl font-bold text-slate-900 dark:text-white flex items-center gap-2">
-            <MapPin className="text-hideout-accent" /> Travel Gallery
-          </h2>
-          <p className="text-sm text-slate-500 dark:text-hideout-muted font-mono">
-            git commit -m "Add new travel photos"
-          </p>
-        </div>
+        {/* <div className="p-6 pb-2"> */}
+        <h2 className="text-2xl font-bold text-slate-900 dark:text-white flex items-center gap-2">
+          <MapPin className="text-hideout-accent" /> Travel Gallery
+        </h2>
+        <p className="text-sm text-slate-500 dark:text-hideout-muted font-mono">
+          git commit -m "Add new travel photos"
+        </p>
+        {/* </div> */}
 
         {/* City Tabs */}
         <div className="flex gap-4 px-6 py-4 overflow-x-auto shrink-0">
