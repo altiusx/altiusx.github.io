@@ -14,11 +14,11 @@ const ArtCard = ({ onClick }) => {
     <Card className={cardLabelPosition}>
       <div className="h-full flex flex-col justify-between">
         <div className={monoLabelPosition}>
-          <Pencil size={16} className="text-hideout-accent" />
+          <Palette size={16} className="text-hideout-accent" />
           <span className={monoLabelCaps}>Creative_Side</span>
         </div>
         <div className="absolute -top-8 -right-8 text-slate-100 dark:text-white/5 z-0 pointer-events-none">
-          <Palette
+          <Pencil
             size={120}
             strokeWidth={0.5}
             className="transition-transform duration-[3s] ease-in-out group-hover:rotate-45"

@@ -26,7 +26,10 @@ const App = () => {
 
   useEffect(() => {
     if (easterEggActive) {
-      setShowToast(true);
+      const timer = setTimeout(() => {
+        setShowToast(true);
+      }, 0);
+      return () => clearTimeout(timer);
     }
   }, [easterEggActive]);
   return (
@@ -53,8 +56,8 @@ const App = () => {
               <Typewriter
                 words={[
                   'software_engineer',
-                  'budding_artist',
-                  'pc_builder',
+                  'wannabe_artist',
+                  'coffee_enthusiast',
                   'aspiring_student',
                   'night_owl',
                 ]}

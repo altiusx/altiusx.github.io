@@ -7,7 +7,7 @@ import {
   modalButton,
 } from '../../styles/stylingPatterns';
 import Card from '../Card';
-import { MapPin, Compass, Image as ImageIcon } from 'lucide-react';
+import { Plane, Compass, Image as ImageIcon } from 'lucide-react';
 
 const TravelCard = ({ onClick }) => {
   return (
@@ -18,7 +18,7 @@ const TravelCard = ({ onClick }) => {
         // onClick={() => setShowTravelModal(true)}
       >
         <div className={monoLabelPosition}>
-          <MapPin size={16} className="text-hideout-accent" />
+          <Plane size={16} className="text-hideout-accent" />
           <span className={monoLabelCaps}>Travel_Log</span>
         </div>
         <div className="absolute -top-12 -right-12 text-slate-100 dark:text-white/5 z-0 pointer-events-none">

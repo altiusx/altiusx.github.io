@@ -1,12 +1,12 @@
 import Card from '../Card';
-import { Database, Server, LaptopMinimal } from 'lucide-react';
+import { Code, Server, LaptopMinimal } from 'lucide-react';
 import { monoLabelPosition, monoLabelCaps, modalButton } from '../../styles/stylingPatterns';
 
 const TechCard = ({ onClick }) => {
   return (
-    <Card className="lg:col-span-1 lg:row-span-2 relative overflow-hidden flex flex-col justify-between h-full">
+    <Card className="lg:col-span-1 lg:row-span-2 relative overflow-hidden flex flex-col justify-between h-full group bg-gradient-to-b dark:from-hideout-card dark:to-[#162032]">
       <div className={monoLabelPosition}>
-        <Database size={16} className="text-hideout-accent" />
+        <Code size={16} className="text-hideout-accent" />
         <span className={monoLabelCaps}>Tech_Arsenal</span>
       </div>
       <div className="absolute -top-12 -right-12 text-slate-100 dark:text-white/5 z-0 pointer-events-none">

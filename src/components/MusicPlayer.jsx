@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import AudioPlayer from 'react-h5-audio-player';
 import 'react-h5-audio-player/lib/styles.css';
-import { Music, Disc3 } from 'lucide-react';
+import { Headphones, Disc3 } from 'lucide-react';
 
 const MusicPlayerWidget = () => {
   const Playlist = [
@@ -38,7 +38,7 @@ const MusicPlayerWidget = () => {
       {/* TOP SECTION */}
       <div className="p-5 pb-0 z-10 relative">
         <div className="flex items-center gap-2 mb-1">
-          <Music size={14} className="text-hideout-accent" />
+          <Headphones size={14} className="text-hideout-accent" />
           <span className="text-[10px] font-mono text-hideout-accent uppercase tracking-widest">
             Lofi_Station
           </span>
