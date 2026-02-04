@@ -31,7 +31,7 @@ const TravelCard = ({ onClick }) => {
 
         <div>
           <h3 className={smallCardHeaderText}>Singapore</h3>
-          <p className={monoLabel}>base_of_ops</p>
+          <p className={monoLabel}>1.3521° N, 103.8198° E</p>
         </div>
       </div>
       <button onClick={onClick} className={modalButton} title="Open Travel Gallery">
