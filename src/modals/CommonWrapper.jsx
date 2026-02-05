@@ -40,6 +40,8 @@ const CommonWrapper = ({ isOpen, onClose, title, children, className = '' }) => 
               fixed inset-0 m-auto z-50 
               bg-white dark:bg-zinc-900 
               rounded-xl overflow-hidden shadow-2xl flex flex-col border border-zinc-800
+
+              overscroll-contain
               
               /* --- UNIFIED MOBILE SIZE --- */
               w-[95vw] h-[75vh]
