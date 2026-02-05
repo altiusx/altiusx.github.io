@@ -7,7 +7,7 @@ const TechCard = ({ onClick }) => {
     <Card className="lg:col-span-1 lg:row-span-2 relative overflow-hidden flex flex-col justify-between h-full group bg-gradient-to-b dark:from-hideout-card dark:to-[#162032]">
       <div className={monoLabelPosition}>
         <Code size={16} className="text-hideout-accent" />
-        <span className={monoLabelCaps}>Tech_Arsenal</span>
+        <span className={monoLabelCaps}>App_Deployments</span>
       </div>
       <div className="absolute -top-12 -right-12 text-slate-100 dark:text-white/5 z-0 pointer-events-none">
         <Server
@@ -21,14 +21,14 @@ const TechCard = ({ onClick }) => {
         <div className="flex gap-2 mb-3">
           <span className="text-green-500 font-bold">➜</span>
           <span className="text-slate-700 dark:text-zinc-300">
-            detect_stack.sh <span className="text-slate-400">--verbose</span>
+            view_builds.sh <span className="text-slate-400">--production</span>
           </span>
         </div>
 
         {/* Log Output */}
         <div className="pl-4 border-l border-zinc-200 dark:border-white/10 ml-1.5 space-y-1.5">
           <p>
-            Target: <span className="text-hideout-accent">work_skillsets</span>
+            Target: <span className="text-hideout-accent">app_deployments</span>
           </p>
           <p className="opacity-50">Scanning environment...</p>
 
@@ -37,20 +37,21 @@ const TechCard = ({ onClick }) => {
             {/* Group 1 */}
             <div className="mt-3">
               <p className="text-slate-400 dark:text-zinc-600 font-bold mb-0.5">
-                # Core_Frameworks
+                # Personal_Repository
               </p>
-              <p>[✓] React SSPA</p>
-              <p>[✓] Java Spring Boot</p>
+              <p>[✓] Portfolio</p>
+              <p>[✓] SplitPals</p>
+              <p>[✓] SmartMove</p>
             </div>
 
             {/* Group 2 */}
             <div className="mt-3">
               <p className="text-slate-400 dark:text-zinc-600 font-bold mb-0.5">
-                # Services_&_Tools
+                # Work_Experience
               </p>
-              <p>[✓] MongoDB</p>
-              <p>[✓] Openshift</p>
-              <p>[✓] GitLab Runner (CI/CD)</p>
+              <p>[✓] Project Architecture</p>
+              <p>[✓] C2 integration</p>
+              <p>[✓] DevSecOps pipeline</p>
             </div>
           </div>
           {/* ------------------------------------------------------------------------------- */}
@@ -58,7 +59,10 @@ const TechCard = ({ onClick }) => {
           {/* Success Message (Visible on All) */}
           {/* On mobile, this will appear right after "Scanning environment..." */}
           <p className="mt-2 md:mt-4 animate-pulse text-hideout-accent">
-            &gt; Awaiting user input_
+            &gt; {/* Mobile & Tablet */}
+            <span className="lg:hidden">tap button</span>
+            {/* Desktop */}
+            <span className="hidden lg:inline">click button</span> to view_
           </p>
         </div>
       </div>
